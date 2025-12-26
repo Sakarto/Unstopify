@@ -15,4 +15,4 @@ Unstopify is a macOS application that monitors Spotify playback and restarts Spo
 
 ## Disclaimer
 This project does not modify Spotify, inject code, or block content. It only monitors playback state and restarts the application when unexpected content is detected.
-Additionally, if Unstopify is running, Spotify will automatically resume and relaunch if paused or closed.
+Additionally, if Unstopify is running, Spotify will automatically resume and relaunch if paused or closed. Quit Unstopify first to fully pause or close Spotify.
