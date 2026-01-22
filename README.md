@@ -5,8 +5,8 @@ Unstopify is a macOS application that monitors Spotify playback and automaticall
 ## Features
 
 - Automatically restarts Spotify when ads or non-music content plays
-- Relaunches Spotify if it quits while Unstopify is running
 - Restores playback and returns focus to your previous app after restart
+- Automatically quits when you manually quit Spotify
 - Does NOT interfere with normal pause/play when you control it manually
 - Lightweight and runs entirely locally
 
@@ -16,12 +16,11 @@ Unstopify is a macOS application that monitors Spotify playback and automaticall
 2. Drag `Unstopify.app` into your Applications folder
 3. Open the app and grant necessary permissions when prompted:
    - **Automation**: Allow Unstopify to control Spotify
-   - **Terminal**: Allow Terminal to control Spotify (if using the stop shortcut)
    - **Accessibility** (if prompted)
 
 ## Setting Up the Stop Shortcut
 
-Since Unstopify runs continuously, you'll need a keyboard shortcut to stop it:
+To manually stop Unstopify without quitting Spotify, create a keyboard shortcut:
 
 1. Open **Shortcuts** app (search in Spotlight)
 2. Click **"+"** to create a new shortcut
@@ -41,8 +40,13 @@ osascript -e 'display notification "Unstopify stopped" with title "Unstopify"'
 ## Usage
 
 **To start:** Double-click Unstopify.app
+- Click **"Start"** to launch Spotify and begin monitoring
+- Click **"Cancel"** to quit without launching Spotify
+- Wait 10 seconds (no click) to auto-start with Spotify
 
-**To stop:** Press your configured keyboard shortcut
+**To stop:** 
+- Quit Spotify normally (Cmd+Q on Spotify) - Unstopify will automatically quit too
+- Or use your configured keyboard shortcut to stop Unstopify without quitting Spotify
 
 **To force quit:** Open Activity Monitor, find Unstopify, and click the X button
 
@@ -51,11 +55,13 @@ osascript -e 'display notification "Unstopify stopped" with title "Unstopify"'
 tail -f ~/.unstopify.log
 ```
 
-**Note:** Cmd+Q might not work to quit Unstopify, so use the keyboard shortcut "Stop Unstopify" instead.
+**Note:** Cmd+Q on Unstopify might not work on macOS Sequoia beta. Use the keyboard shortcut "Stop Unstopify" instead.
 
 ## How It Works
 
-Unstopify checks Spotify's current track every 3 seconds. When it detects non-track content (ads, promotions, etc.) or if Spotify quits unexpectedly, it automatically restarts Spotify and resumes playback in the background without interrupting your workflow.
+Unstopify checks Spotify's current track every 3 seconds. When it detects non-track content (ads, promotions, etc.), it automatically restarts Spotify and resumes playback in the background without interrupting your workflow.
+
+When you manually quit Spotify (more than 10 seconds after an ad), Unstopify detects this and automatically quits too.
 
 ## Building from Source
 
@@ -69,4 +75,4 @@ Unstopify checks Spotify's current track every 3 seconds. When it detects non-tr
 
 This project does not modify Spotify, inject code, or block content. It only monitors playback state and restarts the application when unexpected content is detected.
 
-**Important:** If Unstopify is running and Spotify quits or an ad plays, Spotify will automatically relaunch and resume playback. Quit Unstopify first if you want to fully close Spotify.
+**Important:** When Unstopify detects ads or non-music content, it will automatically restart Spotify and resume playback. If you want to quit Spotify, simply quit it normally and Unstopify will stop automatically.
